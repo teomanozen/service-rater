@@ -1,0 +1,49 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# User-specific files
+*.rsuser
+*.userprefs
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# EF Migrations (optional - some keep, some ignore)
+# **/Migrations/
+
+# Docker volumes
+postgres_data/
+rabbitmq_data/
+
+# Environment files with secrets
+*.env
+appsettings.Production.json
