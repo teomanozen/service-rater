@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RatingService.Data;
+using RatingService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<RatingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IRatingService, RatingServiceImpl>();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<INotificationPublisher, HttpNotificationPublisher>();
 
 builder.Services.AddControllers();
 
