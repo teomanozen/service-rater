@@ -1,8 +1,6 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
     container_name: servicerater-postgres
@@ -17,8 +15,28 @@ services:
     networks:
       - app-network
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: servicerater-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: servicerater
+      RABBITMQ_DEFAULT_PASS: dev_password_123
+    ports:
+      - "5672:5672"   # RabbitMQ main port
+      - "15672:15672" # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - app-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
 volumes:
   postgres_data:
+  rabbitmq_data:
 
 networks:
   app-network:

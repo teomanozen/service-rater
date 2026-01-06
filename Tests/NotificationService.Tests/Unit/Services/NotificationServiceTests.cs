@@ -22,70 +22,7 @@ public class NotificationServiceTests
         _mockLogger = new Mock<ILogger<NotificationServiceImpl>>();
         _service = new NotificationServiceImpl(_mockStore.Object, _mockLogger.Object);
     }
-
-    // ===== AddNotification Tests =====
-
-    [Test]
-    public async Task AddNotification_ValidNotification_CallsStore()
-    {
-        // Arrange
-        var notification = new RatingNotification
-        {
-            Id = Guid.NewGuid().ToString(),
-            ServiceProviderId = 123,
-            CustomerId = 456,
-            Score = 5,
-            Comment = "Great service!",
-            CreatedAt = DateTime.UtcNow,
-            Type = "NewRating"
-        };
-
-        // Act
-        await _service.AddNotificationAsync(notification);
-
-        // Assert
-        _mockStore.Verify(
-            x => x.AddNotificationAsync(It.Is<RatingNotification>(n => 
-                n.ServiceProviderId == 123 && n.Score == 5)),
-            Times.Once);
-    }
-
-    [Test]
-    public void AddNotification_InvalidServiceProviderId_ThrowsArgumentException()
-    {
-        // Arrange
-        var notification = new RatingNotification
-        {
-            Id = Guid.NewGuid().ToString(),
-            ServiceProviderId = 0,
-            CustomerId = 456,
-            Score = 5,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        // Act & Assert
-        Assert.ThrowsAsync<ArgumentException>(async () => 
-            await _service.AddNotificationAsync(notification));
-    }
-
-    [Test]
-    public void AddNotification_NegativeServiceProviderId_ThrowsArgumentException()
-    {
-        // Arrange
-        var notification = new RatingNotification
-        {
-            Id = Guid.NewGuid().ToString(),
-            ServiceProviderId = -5,
-            CustomerId = 456,
-            Score = 5,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        // Act & Assert
-        Assert.ThrowsAsync<ArgumentException>(async () => 
-            await _service.AddNotificationAsync(notification));
-    }
-
+    
     // ===== GetNotifications Tests =====
 
     [Test]

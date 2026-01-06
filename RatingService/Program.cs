@@ -14,9 +14,12 @@ builder.Services.AddDbContext<RatingDbContext>(options =>
 
 builder.Services.AddScoped<IRatingService, RatingServiceImpl>();
 
-builder.Services.AddHttpClient();
+// OLD: HTTP communication (v1.0.0)
+// builder.Services.AddHttpClient();
+// builder.Services.AddScoped<INotificationPublisher, HttpNotificationPublisher>();
 
-builder.Services.AddScoped<INotificationPublisher, HttpNotificationPublisher>();
+// NEW: RabbitMQ async communication (v2.0.0)
+builder.Services.AddSingleton<INotificationPublisher, RabbitMQNotificationPublisher>();
 
 builder.Services.AddControllers();
 

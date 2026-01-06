@@ -7,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<INotificationService, NotificationServiceImpl>();
 builder.Services.AddSingleton<INotificationStore, InMemoryNotificationStore>();
 
+// NEW: RabbitMQ consumer background service (v2.0.0)
+builder.Services.AddHostedService<RabbitMQConsumerService>();
+
 // Configure API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

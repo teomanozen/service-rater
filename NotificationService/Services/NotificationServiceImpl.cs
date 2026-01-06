@@ -18,17 +18,6 @@ public class NotificationServiceImpl : INotificationService
         _logger = logger;
     }
 
-    public async Task AddNotificationAsync(RatingNotification notification)
-    {
-        if (notification.ServiceProviderId <= 0)
-            throw new ArgumentException("Service Provider ID must be greater than 0");
-
-        _logger.LogInformation("Processing notification {NotificationId} for Service Provider {ServiceProviderId}", 
-            notification.Id, notification.ServiceProviderId);
-
-        await _store.AddNotificationAsync(notification);
-    }
-
     public async Task<NotificationsResponse> GetNotificationsAsync(int serviceProviderId, int limit = 10)
     {
         if (serviceProviderId <= 0)
