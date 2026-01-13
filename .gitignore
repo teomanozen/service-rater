@@ -47,3 +47,5 @@ rabbitmq_data/
 # Environment files with secrets
 *.env
 appsettings.Production.json
+
+scripts
